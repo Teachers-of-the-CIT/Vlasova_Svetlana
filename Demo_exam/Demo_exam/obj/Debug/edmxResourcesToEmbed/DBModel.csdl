@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DemoExamDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Goods">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Discount" Type="Int32" Nullable="false" />
+    <Property Name="Discription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GoodsImage" Type="Boolean" />
+    <Property Name="Manufacture" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderGoods" Relationship="Self.FK__OrderGood__Goods__3F466844" FromRole="Goods" ToRole="OrderGoods" />
+  </EntityType>
+  <EntityType Name="IssuePoints">
+    <Key>
+      <PropertyRef Name="CityIndex" />
+    </Key>
+    <Property Name="CityIndex" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StreetName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HouseNumber" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__PointOfI__3D5E1FD2" FromRole="IssuePoints" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Number" />
+    </Key>
+    <Property Name="Number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientId" Type="Int32" />
+    <Property Name="Compound" Type="Boolean" Nullable="false" />
+    <Property Name="DateOfOrder" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateOfDelievery" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PointOfIssue" Type="Int32" Nullable="false" />
+    <Property Name="ClientSNP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CodeOfRecieving" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="IssuePoints" Relationship="Self.FK__Orders__PointOfI__3D5E1FD2" FromRole="Orders" ToRole="IssuePoints" />
+    <NavigationProperty Name="OrderGoods" Relationship="Self.FK__OrderGood__Order__403A8C7D" FromRole="Orders" ToRole="OrderGoods" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Orders__ClientId__3C69FB99" FromRole="Orders" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ClientId__3C69FB99" FromRole="Users" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="OrderGoods">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrderId" />
+      <PropertyRef Name="GoodsId" />
+      <PropertyRef Name="Count" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="GoodsId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK__OrderGood__Goods__3F466844" FromRole="OrderGoods" ToRole="Goods" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__OrderGood__Order__403A8C7D" FromRole="OrderGoods" ToRole="Orders" />
+  </EntityType>
+  <Association Name="FK__OrderGood__Goods__3F466844">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="1" />
+    <End Role="OrderGoods" Type="Self.OrderGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderGoods">
+        <PropertyRef Name="GoodsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__PointOfI__3D5E1FD2">
+    <End Role="IssuePoints" Type="Self.IssuePoints" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IssuePoints">
+        <PropertyRef Name="CityIndex" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="PointOfIssue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderGood__Order__403A8C7D">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="OrderGoods" Type="Self.OrderGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Number" />
+      </Principal>
+      <Dependent Role="OrderGoods">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__ClientId__3C69FB99">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DemoExamDataBaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Goods" EntityType="Self.Goods" />
+    <EntitySet Name="IssuePoints" EntityType="Self.IssuePoints" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="OrderGoods" EntityType="Self.OrderGoods" />
+    <AssociationSet Name="FK__OrderGood__Goods__3F466844" Association="Self.FK__OrderGood__Goods__3F466844">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="OrderGoods" EntitySet="OrderGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__PointOfI__3D5E1FD2" Association="Self.FK__Orders__PointOfI__3D5E1FD2">
+      <End Role="IssuePoints" EntitySet="IssuePoints" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderGood__Order__403A8C7D" Association="Self.FK__OrderGood__Order__403A8C7D">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderGoods" EntitySet="OrderGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__ClientId__3C69FB99" Association="Self.FK__Orders__ClientId__3C69FB99">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

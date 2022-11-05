@@ -1,0 +1,47 @@
+﻿<Window x:Class="Demo_exam.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Demo_exam"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Background="#B3F4E9">
+            <Label Content="Окно администратора" HorizontalAlignment="Center" FontFamily="Candara" FontSize="18"/>
+        </StackPanel>
+        <Button Content="Выйти" HorizontalAlignment="Left" FontSize="15" Click="Button_Click_2"/>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Button Content="Сохранить изменения" FontSize="12" Click="Button_Click_1"/>
+            <Button Content="Добавить заказ" FontSize="15" Click="Button_Click"/>
+            <Button Content="Удалить" FontSize="15" Click="DeleteButton_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="OrdersDataGrid" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Width="25" Binding="{Binding Number}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="Состав" Width="*" Binding="{Binding Name}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата заказа" Width="*" Binding="{Binding Date}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата доставки" Width="*" Binding="{Binding Status}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="Пункт выдачи" Width="*" Binding="{Binding Number}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="ФИО клиента" Width="*" Binding="{Binding Name}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="Код получения" Width="*" Binding="{Binding Date}" FontSize="15"></DataGridTextColumn>
+                <DataGridTextColumn Header="Статус" Width="*" Binding="{Binding Status}" FontSize="15"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Редактировать" FontSize="15" Name="ButtonEdit"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
