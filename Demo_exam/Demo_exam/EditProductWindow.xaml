@@ -1,0 +1,46 @@
+﻿<Window x:Class="Demo_exam.EditProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Demo_exam"
+        mc:Ignorable="d"
+        Title="Редактирование заказа" Height="450" Width="800" MinHeight="450" MinWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" x:Name="TBNumber" Text="Номер" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" x:Name="TBCompound" Text="Описание" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0" x:Name="TBDateOfOrder" Text="Дата заказа" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" x:Name="TBDateOfDelievery" Text="Дата доставки" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0" x:Name="TBPointOfIssue" Text="Пункт выдачи" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="5" Grid.Column="0" x:Name="TBClientSNP" Text="Фио клиента" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="6" Grid.Column="0" x:Name="TBCodeOfRecieving" Text="Код получения" FontSize="15"></TextBlock>
+        <TextBlock Grid.Row="7" Grid.Column="0" x:Name="TBtStatus" Text="Статус" FontSize="15"></TextBlock>
+
+
+        <TextBox Text="{Binding Number}" Grid.Row="0" Grid.Column="1" FontSize="15" x:Name="TeBNumber" Width="250"></TextBox>
+        <TextBox Text="{Binding Compound}" Grid.Row="1" Grid.Column="1" FontSize="15" x:Name="TeBCompound" Width="250"></TextBox>
+        <TextBox Text="{Binding DateOfOrder}" Grid.Row="2" Grid.Column="1" FontSize="15" x:Name="TeBDateOfOrder" Width="250"></TextBox>
+        <TextBox Text="{Binding DateOfDelievery}" Grid.Row="3" Grid.Column="1" FontSize="15" x:Name="TeBDateOfDelievery" Width="250"></TextBox>
+        <TextBox Text="{Binding PointOfIssue}" Grid.Row="4" Grid.Column="1" FontSize="15" x:Name="TeBPointOfIssue" Width="250"></TextBox>
+        <TextBox Text="{Binding ClientSNP}" Grid.Row="5" Grid.Column="1" FontSize="15" x:Name="TeBClientSNP" Width="250"></TextBox>
+        <TextBox Text="{Binding CodeOfRecieving}" Grid.Row="6" Grid.Column="1" FontSize="15" x:Name="TeBCodeOfRecieving" Width="250"></TextBox>
+        <TextBox Text="{Binding Status}" Grid.Row="7" Grid.Column="1" FontSize="15" x:Name="TeBtStatus" Width="250"></TextBox>
+
+        <Button Grid.Row="8" Grid.ColumnSpan="2" Content="Сохранить" x:Name="BtnSave" FontSize="15" Click="BtnSave_Click"></Button>
+    </Grid>
+</Window>
